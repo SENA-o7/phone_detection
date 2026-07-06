@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Model weights
+*.pt
+yolov8s.pt
+
+# IDEs
+.vscode/
+.idea/
+.spyderproject
+.spyproject/
