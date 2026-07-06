@@ -1,29 +1,48 @@
-# Telefon Tespiti ile Ders Çalışma Asistanı 📚🚫📱
+# 📱 Telefon Tespiti ile Ders Çalışma Asistanı (Focus Guardian)
 
-Merhaba! Ben bu projeyi ders çalışırken telefonuma bakmaktan kendimi alıkoyamadığım için geliştirdim. Ders çalışırken odaklanmamı sağlamak için yapay zeka destekli bir "Telefon Tespit Sistemi" yaptım.
+Merhaba! Ben bu projeyi, ders çalışırken telefonuma bakmaktan kendimi alıkoyamadığım için, tamamen kendi ihtiyacımı çözmek amacıyla geliştirdim. Masa başında geçirdiğim vakti daha verimli hale getirmek ve odaklanmamı sağlamak için yapay zeka destekli bir "Telefon Tespit Sistemi" kodladım.
 
-## Proje Ne İşe Yarıyor? 🤔
-Ders çalışırken eğer telefonumu elime alırsam, kameram bunu tespit ediyor. Ekranda estetik bir ilerleme çubuğu beliriyor ve eğer telefonu **5 saniye** boyunca bırakmazsam otomatik olarak beni uyaracak bir video açılıyor. (Küçük bir tolerans payı da ekledim, eğer telefonu anlık olarak ekrandan çekersem sayaç sıfırlanıyor.)
+## 🎯 Projenin Amacı ve Çalışma Mantığı
 
-## Kullanılan Teknolojiler 🛠️
-*   **Python:** Projenin ana dili.
-*   **OpenCV (cv2):** Kameradan görüntü almak ve ekrana estetik yuvarlak ilerleme çubuğunu çizmek için.
-*   **YOLOv8 (Ultralytics):** Görüntüdeki telefonu anlık ve yüksek doğrulukla tespit etmek için YOLOv8'in hafif ve hızlı olan `yolov8s` (Small) modelini kullandım.
+Ders çalışırken en büyük dikkat dağıtıcımız telefonumuz. Bu proje bilgisayarınızın web kamerasını kullanarak anlık olarak sizi izliyor. Eğer ders çalışırken telefonu elinize alırsanız, sistem bunu YOLOv8 yapay zeka modelini kullanarak tespit ediyor.
 
-## Özellikler ✨
-*   **Gerçek Zamanlı Tespit:** YOLOv8 ile kameradan canlı olarak telefon tespiti.
-*   **Estetik Arayüz:** Sadece dümdüz yazılar değil, ekranda beliren, doldukça renk değiştiren (sarı -> turuncu -> kırmızı) yuvarlak bir ilerleme çubuğu ekledim.
-*   **Tolerans Sistemi:** Telefonu 1-2 saniyeliğine görüp kaybetmesi durumunda hemen ceza vermemesi için 2 saniyelik bir `GRACE_PERIOD` (tolerans süresi) tanımladım.
-*   **Otomatik Uyarı:** 5 saniye dolduğunda otomatik olarak belirlediğim bir YouTube videosu açılıyor.
+Ekranda estetik bir **ilerleme çubuğu** (progress bar) beliriyor ve size telefonu bırakmanız için kısa bir süre tanıyor. Eğer telefonu **5 saniye boyunca** bırakmazsanız, sistem otomatik olarak belirlediğim caydırıcı bir YouTube videosunu açarak sizi uyarıyor. 
 
-## Nasıl Çalıştırılır? 🚀
+## ✨ Neler Yaptım? (Özellikler)
 
-1.  Öncelikle gerekli kütüphaneleri yüklemeniz gerekiyor. Terminalinize (veya Spyder konsolunuza) şu komutu yazabilirsiniz:
-    ```bash
-    pip install opencv-python ultralytics
-    ```
-2.  `phone_detector.py` dosyasını çalıştırın.
-3.  İlk çalıştırdığınızda `yolov8s.pt` ağırlık dosyası otomatik olarak inecektir. (Bu yüzden `.gitignore` içerisine `.pt` dosyalarını ekledim ki Github'ı gereksiz yere doldurmasın.)
-4.  Kamera açılacak ve sistem çalışmaya başlayacaktır!
+Bu projeyi geliştirirken sadece çalışmasına değil, aynı zamanda kullanıcı deneyimine ve esnekliğine de çok dikkat ettim:
 
-Projemi incelediğiniz için teşekkürler! Umarım sizin de odaklanmanıza yardımcı olur. 🎯
+*   **🧠 YOLOv8 ile Yüksek Başarılı Tespit:** Görüntü işleme ve nesne tespiti konusunda şu anki en gelişmiş modellerden biri olan YOLOv8'in `yolov8s` (Small) versiyonunu kullandım. Bu sayede telefon tespiti çok hızlı ve yüksek doğrulukla gerçekleşiyor.
+*   **🎨 Estetik ve Dinamik Arayüz (UI):** Sadece siyah bir ekranda yazı göstermek yerine OpenCV ile özel bir çizim fonksiyonu yazdım. Ekranın sağ üst köşesinde beliren, doldukça renk değiştiren (Sarı 🟡 -> Turuncu 🟠 -> Kırmızı 🔴) estetik bir dairesel ilerleme çubuğu bulunuyor.
+*   **⏱️ Akıllı Tolerans Sistemi (Grace Period):** Telefonu masanın üzerinde hareket ettirirken veya kameranın görüş açısından 1-2 saniyeliğine çıktığında sistemin haksız yere ceza vermemesi için **2 saniyelik bir tolerans süresi (Grace Period)** kodladım. Eğer telefonu elinizden bırakırsanız sayaç anında sıfırlanıyor.
+*   **🚨 Otomatik Uyarı Mekanizması:** 5 saniyelik limit dolduğunda Python'un `webbrowser` kütüphanesi tetikleniyor ve otomatik olarak bir uyarı/motivasyon videosu açılıyor.
+*   **⚙️ Optimize Edilmiş Eşik Değerleri:** Kameranın ortamdaki başka objeleri (kalem kutusu, hesap makinesi vb.) telefon sanmaması için güven oranını (Confidence Score) titizlikle ayarladım (%45-%55 arası optimum değer kullanıldı).
+
+## 🛠️ Kullanılan Teknolojiler
+
+*   **Python:** Projenin çekirdek dili.
+*   **OpenCV (`cv2`):** Kameradan canlı görüntü almak, görüntüleri işlemek ve ekrandaki estetik UI elementlerini çizmek için.
+*   **Ultralytics (YOLOv8):** Derin öğrenme tabanlı nesne tespiti için.
+
+## 🚀 Kurulum ve Çalıştırma
+
+Projeyi kendi bilgisayarınızda çalıştırmak oldukça basit!
+
+### 1. Gerekli Kütüphaneleri Yükleyin
+Terminalinizi veya Spyder/VSCode konsolunuzu açıp aşağıdaki komutu çalıştırın:
+```bash
+pip install opencv-python ultralytics
+```
+
+### 2. Projeyi Çalıştırın
+Sadece ana Python dosyasını çalıştırmanız yeterli:
+```bash
+python phone_detector.py
+```
+
+> **Not:** Kodu ilk kez çalıştırdığınızda, YOLOv8'in yaklaşık 20 MB boyutundaki ağırlık dosyası (`yolov8s.pt`) otomatik olarak internetten indirilecektir. Projenin boyutunu şişirmemek adına bu ağırlık dosyalarını `.gitignore` içerisine ekledim ve GitHub'a yüklemedim.
+
+## 🤝 Katkıda Bulunma
+Bu proje açık kaynaklıdır ve geliştirmeye açıktır. Eğer aklınıza yeni bir özellik gelirse (örneğin sesi kapatma, farklı cezalar ekleme vs.) Pull Request göndermekten çekinmeyin!
+
+Projemi incelediğiniz için teşekkürler! Umarım sizin de odaklanmanıza yardımcı olur. 🎯 Başarılar!
